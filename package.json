@@ -1,0 +1,13 @@
+{
+  "name": "taurus-v2",
+  "version": "1.0.0",
+  "description": "Taurus Trailer Rails API",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd client && npm install --only=dev && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "postinstall": "npm run build && npm run deploy && echo 'Client built!'"
+  },
+  "author": "Cottonwood Coding",
+  "license": "MIT"
+}
