@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       resources :services
     end
 
+    resources :services, only: [:index]
+
     resources :part_categories do
     end
   end

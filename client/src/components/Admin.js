@@ -1,21 +1,64 @@
 import React from 'react';
 import Categories from './Categories';
-import { Grid } from 'semantic-ui-react';
+import AdminServices from './AdminServices';
+import { Grid, Menu } from 'semantic-ui-react';
 
-const Admin = () => (
-  <div className="row">
-    <h2 className="center">Admin Dashboard</h2>
-    <Grid columns={16}>
-      <Grid.Row>
-        <Grid.Column computer={8} tablet={8} mobile={1}>
-          <Categories name="service" />
-        </Grid.Column>
-        <Grid.Column computer={8} tablet={8} mobile={1}>
-          <Categories name="part" />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </div>
-)
+class Admin extends React.Component {
+  state = { panel: 'categories' }
+
+  togglePanel = (panel) => {
+    this.setState({ panel });
+  }
+
+  showPanel = () => {
+    let { panel } = this.state;
+    switch (this.state.panel) {
+      case 'categories': 
+        return (
+          <Grid.Row>
+            <Grid.Column computer={8} tablet={8} mobile={1}>
+              <Categories name="service" />
+            </Grid.Column>
+            <Grid.Column computer={8} tablet={8} mobile={1}>
+              <Categories name="part" />
+            </Grid.Column>
+          </Grid.Row>
+        )
+      case 'services':
+        return (
+          <AdminServices />
+        )
+    }
+  }
+
+  handleItemClick = (e, { name }) => this.setState({ panel: name })
+
+  render() {
+    let { panel } = this.state;
+    return (
+      <div className="row">
+        <h2 className="center">Admin Dashboard</h2>
+        <Menu attached="top" tabular>
+          { ['categories', 'services', 'parts', 'site'].map( (name) => {
+              return (
+                <Menu.Item
+                  key={name}
+                  name={name}
+                  active={panel === name}
+                  onClick={this.handleItemClick}
+                />
+              )
+            })
+          }
+        </Menu>
+        <br />
+        <br />
+        <Grid columns={16}>
+          {this.showPanel()}
+        </Grid>
+      </div>
+    )
+  }
+}
 
 export default Admin;
