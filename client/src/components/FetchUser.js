@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Auth from 'j-toker';
 
 class FetchUser extends React.Component {
   state = { loaded: false }
@@ -13,7 +14,11 @@ class FetchUser extends React.Component {
     if (isAuthenticated) {
       this.loaded();
     } else {
-      dispatch(tryFetchUser(this.loaded))
+      Auth.configure({ apiUrl: '/api' });
+      Auth.validateToken()
+        .then( user => { this.props.dispatch({ type: 'LOGIN', user }) })
+        .then( () => this.loaded() )
+        .catch( () => { this.loaded() } )
     }
   }
 
@@ -24,7 +29,7 @@ class FetchUser extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { isAuthenticated: state.user.id }
+  return { isAuthenticated: state.auth.isAuthenticated }
 }
 
 export default connect(mapStateToProps)(FetchUser);

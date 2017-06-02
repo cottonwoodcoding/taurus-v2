@@ -1,4 +1,5 @@
 import { setFlash } from './flash';
+import $ from 'jquery';
 
 export const serviceCategories = () => {
   return (dispatch) => {
@@ -31,7 +32,21 @@ export const addServiceCategory = (name) => {
     }).done( category => {
       dispatch({ type: 'ADD_SERVICE_CATEGORY', category })
     }).fail( err => {
-      dispatch(setFlash(err.errors, 'error'))
+      dispatch(setFlash(err.responseJSON.errors, 'error'))
+    });
+  }
+}
+
+export const editServiceCategory = (id, name) => {
+  return (dispatch) => {
+    $.ajax({
+      url: `/api/service_categories/${id}`,
+      type: 'PUT',
+      data: { service_category: { name }}
+    }).done( category => {
+      dispatch({ type: 'EDIT_SERVICE_CATEGORY', category })
+    }).fail( err => {
+      dispatch(setFlash(err.responseJSON.errors, 'error'))
     });
   }
 }

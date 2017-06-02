@@ -26,7 +26,8 @@ export const handleLogin = (email, password, history) => {
       dispatch(login(user.data));
       history.push('/');
     }).fail( res => {
-      dispatch(authErrors(res.data.errors));
+      const errors = res.data.errors || [res.reason]
+      dispatch(authErrors(errors));
     });
   }
 }

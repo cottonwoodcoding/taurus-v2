@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Menu, Image, Segment, Grid } from 'semantic-ui-react';
 import { handleLogout } from '../actions/auth';
 import logo from '../images/logo-inverted.png';
 
 class NavBar extends Component {
-
-  state = { activeItem: 'Home' };
 
   links = [
     { name: 'Home', path: '/' },
@@ -25,24 +23,18 @@ class NavBar extends Component {
     { name: 'Login', path: '/login' },
   ]
 
-  handleItemClick = (nav) => {
-    this.setState({ activeItem: nav.name });
-    this.props.history.push(nav.path)
-  }
-
   buildNavs = (navs) => {
     const { history, dispatch } = this.props;
-    const { activeItem } = this.state;
 
     return navs.map( (nav, i) => {
-      const name = nav.name;
+      const { name, path } = nav
+      const { location: { pathname }} = this.props;
 
       return (
         <Menu.Item
           key={i}
           name={name}
-          active={activeItem === name }
-          onClick={() => this.handleItemClick(nav)}
+          active={name !== 'Logout' && path === pathname }
         >
           { nav.name === 'Logout' ?
              <a
@@ -55,7 +47,7 @@ class NavBar extends Component {
                {name}
              </a>
              :
-             <p>{name}</p>
+             <Link to={path}>{name}</Link>
            }
          </Menu.Item>
        );

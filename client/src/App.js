@@ -14,6 +14,7 @@ import Login from './components/Login';
 import Auth from 'j-toker';
 import Flash from './components/Flash';
 import ProtectedRoute from './components/ProtectedRoute';
+import FetchUser from './components/FetchUser';
 
 class App extends Component {
   componentDidMount() {
@@ -32,15 +33,17 @@ class App extends Component {
         <NavBar />
         <Flash />
         <Container textAlign='center'>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/services" component={Services} />
-            <Route exact path="/parts" component={Parts} />
-            <Route exact path="/contact" component={Contact} />
-            <Route path="/login" render={ (props) => <Login {...props} title="Login" /> } />
-            <ProtectedRoute path='/admin' component={Admin} />
-            <Route component={NoMatch} />
-          </Switch>
+          <FetchUser>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/services" component={Services} />
+              <Route exact path="/parts" component={Parts} />
+              <Route exact path="/contact" component={Contact} />
+              <Route exact path="/login" render={ (props) => <Login {...props} title="Login" /> } />
+              <ProtectedRoute exact path='/admin' component={Admin} />
+              <Route component={NoMatch} />
+            </Switch>
+          </FetchUser>
         </Container>
       </div>
     );
