@@ -32,7 +32,7 @@ class App extends Component {
       <div>
         <NavBar />
         <Flash />
-        <Container textAlign='center'>
+        <Container>
           <FetchUser>
             <Switch>
               <Route exact path="/" component={Home} />

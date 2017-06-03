@@ -4,6 +4,7 @@ import flash from './flash';
 import serviceCategories from './serviceCategories';
 import partCategories from './partCategories';
 import services from './services';
+import parts from './parts';
 
 const rootReducer = combineReducers({
   auth,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   serviceCategories,
   partCategories,
   services,
+  parts,
 });
 
 export default rootReducer;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Categories from './Categories';
 import AdminServices from './AdminServices';
+import AdminParts from './AdminParts';
 import { Grid, Menu } from 'semantic-ui-react';
 
 class Admin extends React.Component {
@@ -27,6 +28,10 @@ class Admin extends React.Component {
       case 'services':
         return (
           <AdminServices />
+        )
+      case 'parts':
+        return (
+          <AdminParts />
         )
     }
   }

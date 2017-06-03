@@ -9,7 +9,10 @@ Rails.application.routes.draw do
     resources :services, only: [:index]
 
     resources :part_categories do
+      resources :parts
     end
+
+    resources :parts, only: [:index]
   end
 
   get '*unmatched_route', to: 'application#client'
