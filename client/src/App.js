@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { clearFlash } from './actions/flash';
 import NavBar from './components/NavBar';
@@ -29,10 +29,10 @@ class App extends Component {
 
   render() {
     return(
-      <div>
+      <div className='no-pad'>
         <NavBar />
         <Flash />
-        <Container>
+        <div>
           <FetchUser>
             <Switch>
               <Route exact path="/" component={Home} />
@@ -44,7 +44,7 @@ class App extends Component {
               <Route component={NoMatch} />
             </Switch>
           </FetchUser>
-        </Container>
+        </div>
       </div>
     );
   }

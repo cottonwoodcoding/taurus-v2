@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'Anatole';
+  src: url(../fonts/Anatole.ttf);
+}
+
+.ui.segment {
+  padding: 0 !important;
+}
+
+.gradient-text {
+  color: white !important;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important;
+  letter-spacing: 5px !important;
+  padding: 10px 20px !important;
+  font-size: 2.28rem !important;
+  line-height: 110% !important;
+  margin: 1.14rem 0 0.912rem 0 !important;
+}
+
+.gradient-bg {
+  height: 100vh;
+  background: linear-gradient(to bottom right, black, white);
+}

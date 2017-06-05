@@ -69,9 +69,11 @@ class NavBar extends Component {
           <Grid>
             <Grid.Row only='tablet computer'>
               <Grid.Column>
-                <Menu.Item header>
-                  <Image src={logo} size='small' />
-                </Menu.Item>
+                <Link to='/'>
+                  <Menu.Item header>
+                    <Image src={logo} size='small' />
+                  </Menu.Item>
+                </Link>
               </Grid.Column>
             </Grid.Row>
           </Grid>
