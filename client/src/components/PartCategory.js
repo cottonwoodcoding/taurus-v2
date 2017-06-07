@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, List, Grid } from 'semantic-ui-react';
+import { Header, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getParts } from '../actions/parts';
@@ -13,7 +13,7 @@ class PartCategory extends React.Component {
   }
 
   render() {
-    let { category: { id, name }, parts } = this.props;
+    let { category: { name }, parts } = this.props;
     return (
       <div>
         <Header as="h3">{name}</Header>

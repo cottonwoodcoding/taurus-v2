@@ -2,7 +2,8 @@ import React from 'react';
 import Categories from './Categories';
 import AdminServices from './AdminServices';
 import AdminParts from './AdminParts';
-import { Grid, Menu } from 'semantic-ui-react';
+import AdminSite from './AdminSite';
+import { Grid, Menu, Header } from 'semantic-ui-react';
 
 class Admin extends React.Component {
   state = { panel: 'categories' }
@@ -13,14 +14,14 @@ class Admin extends React.Component {
 
   showPanel = () => {
     let { panel } = this.state;
-    switch (this.state.panel) {
-      case 'categories': 
+    switch (panel) {
+      case 'categories':
         return (
           <Grid.Row>
-            <Grid.Column computer={8} tablet={8} mobile={1}>
+            <Grid.Column computer={8} tablet={16} mobile={16}>
               <Categories name="service" />
             </Grid.Column>
-            <Grid.Column computer={8} tablet={8} mobile={1}>
+            <Grid.Column computer={8} tablet={16} mobile={16}>
               <Categories name="part" />
             </Grid.Column>
           </Grid.Row>
@@ -28,21 +29,28 @@ class Admin extends React.Component {
       case 'services':
         return (
           <AdminServices />
-        )
+        );
       case 'parts':
         return (
           <AdminParts />
+        );
+      case 'site':
+        return (
+          <AdminSite />
         )
+      default: return (
+        <Header as='h1' centered>Coming Soon!</Header>
+      )
     }
   }
 
-  handleItemClick = (e, { name }) => this.setState({ panel: name })
+  handleItemClick = (e, { name }) => this.setState({ panel: name });
 
   render() {
     let { panel } = this.state;
     return (
-      <div className="row">
-        <h2 className="center">Admin Dashboard</h2>
+      <div>
+        <Header as='h2' textAlign='center'>Admin Dashboard</Header>
         <Menu attached="top" tabular>
           { ['categories', 'services', 'parts', 'site'].map( (name) => {
               return (
@@ -58,7 +66,7 @@ class Admin extends React.Component {
         </Menu>
         <br />
         <br />
-        <Grid columns={16}>
+        <Grid>
           {this.showPanel()}
         </Grid>
       </div>

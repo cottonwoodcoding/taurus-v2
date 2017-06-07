@@ -1,26 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { 
-  serviceCategories, 
-  deleteServiceCategory, 
-  addServiceCategory, 
-  editServiceCategory 
-} from '../actions/serviceCategories';
+import { serviceCategories, deleteServiceCategory, addServiceCategory, editServiceCategory } from '../actions/serviceCategories';
+import { partCategories, deletePartCategory, addPartCategory, editPartCategory} from '../actions/partCategories';
+import { Header, Form, Button, Divider, List, Menu } from 'semantic-ui-react';
 
-import { 
-  partCategories, 
-  deletePartCategory, 
-  addPartCategory, 
-  editPartCategory 
-} from '../actions/partCategories';
-
-import { Header, Form, Button, Divider, List } from 'semantic-ui-react';
-
-class Categories extends React.Component {
-  state = { name: '', editing: [] }
+class Categories extends Component {
 
   constructor(props) {
     super(props);
+    this.state = { name: '', editing: [] };
     if (props.name === 'service') {
       this.add = addServiceCategory;
       this.remove = deleteServiceCategory;
@@ -45,8 +33,7 @@ class Categories extends React.Component {
   }
 
   componentDidMount() {
-    let { dispatch } = this.props;
-    dispatch(this.getCategories())
+    this.props.dispatch(this.getCategories())
   }
 
   handleChange = (e) => {
@@ -78,7 +65,7 @@ class Categories extends React.Component {
     let { editing } = this.state;
     return data.map( c => {
       return (
-        <List.Item key={c.id}>
+        <Menu.Item key={c.id}>
           { !editing.includes(c.id) ?
             <div>
               <List.Content>
@@ -86,19 +73,19 @@ class Categories extends React.Component {
                   {c.name}
                 </List.Header>
               </List.Content>
-              <List.Icon 
+              <List.Icon
                 onClick={() => this.toggleEdit(c.id)}
-                style={{ cursor: 'pointer' }} 
-                size='large' 
-                color='blue' 
-                name='edit' 
+                style={{ cursor: 'pointer' }}
+                size='large'
+                color='blue'
+                name='edit'
               />
-              <List.Icon 
+              <List.Icon
                 onClick={() => this.deleteCat(c.id)}
-                style={{ cursor: 'pointer' }} 
-                size='large' 
-                color='red' 
-                name='delete' 
+                style={{ cursor: 'pointer' }}
+                size='large'
+                color='red'
+                name='delete'
               />
             </div>
             :
@@ -113,39 +100,37 @@ class Categories extends React.Component {
               <Button>Save</Button>
             </Form>
           }
-        </List.Item>
+        </Menu.Item>
       )
     });
   }
 
   render() {
     let { name } = this.props;
-    let title = name.charAt(0).toUpperCase() + name.slice(1) + ' Categories';
+    let title = name.charAt(0).toUpperCase() + name.slice(1);
     return (
       <div>
-        <Header textAlign="center" as="h3">{title}</Header> 
-        <Header as="h2">Add A Category</Header>
+        <Header as="h2">Add A New {title} Category</Header>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Input 
+          <Form.Input
             required
-            label="Name" 
+            label="Name"
             value={this.state.name}
             onChange={this.handleChange}
           />
           <Button>Add</Button>
         </Form>
-        <Divider />
-        <List divided>
-          { this.cats() }
-        </List>
+        <Header as='h4'>{title} Categories</Header>
+        <Menu vertical fluid>{ this.cats() }</Menu>
+        <Divider hidden clearing/>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state, props) => {
-  const data = state[`${props.name}Categories`]; 
-  return { data }
+  const data = state[`${props.name}Categories`];
+  return { data };
 }
 
 export default connect(mapStateToProps)(Categories);

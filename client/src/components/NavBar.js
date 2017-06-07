@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Image, Segment, Grid } from 'semantic-ui-react';
+import { Menu, Image } from 'semantic-ui-react';
 import { handleLogout } from '../actions/auth';
 import logo from '../images/logo-inverted.png';
 
@@ -64,30 +64,20 @@ class NavBar extends Component {
       navs = [...this.links, ...this.unAuthenticatedLinks];
 
     return (
-      <Segment inverted>
-        <Menu inverted pointing secondary>
-          <Grid>
-            <Grid.Row only='tablet computer'>
-              <Grid.Column>
-                <Link to='/'>
-                  <Menu.Item header>
-                    <Image src={logo} size='small' />
-                  </Menu.Item>
-                </Link>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <Menu.Menu position='right'>
-            { this.buildNavs(navs) }
-          </Menu.Menu>
-        </Menu>
-      </Segment>
+      <Menu inverted stackable>
+        <Link to='/'>
+          <Menu.Item name='logo' active={false}>
+            <Image src={logo} size='small' />
+          </Menu.Item>
+        </Link>
+          { this.buildNavs(navs) }
+      </Menu>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  return { auth: state.auth }
+  return { auth: state.auth };
 }
 
 export default withRouter(connect(mapStateToProps)(NavBar));

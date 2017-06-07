@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PartForm from './PartForm';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Header, Divider, Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PartCategory from './PartCategory';
 
-class AdminParts extends React.Component {
-  state = { category: { id: 0 }}
+class AdminParts extends Component {
+  state = { category: { id: 0 }};
 
   toggleCategory = (id, name) => {
     this.setState({ category: { id, name }});
@@ -25,7 +25,7 @@ class AdminParts extends React.Component {
     if (category.name) {
       return (
         <div>
-          <a 
+          <a
             style={{ cursor: 'pointer' }}
             onClick={ () => this.toggleCategory({ id: 0 }) }
           >
@@ -37,25 +37,30 @@ class AdminParts extends React.Component {
     } else {
       return (
         <Grid.Row>
-          <Grid.Column computer={8}>
+          <Grid.Column computer={6} tablet={16} mobile={16}>
+            <Header as='h3'>Add A New Part</Header>
             <PartForm />
+            <Divider clearing hidden />
           </Grid.Column>
-          <Grid.Column computer={8}>
-            { categories.sort(this.alpha).map( c => {
-                return (
-                  <span key={c.id} style={{ fontSize: '2rem' }}>
-                    <a
-                      key={c.id}
-                      style={{ cursor: 'pointer' }}
-                      onClick={ () => this.toggleCategory(c.id, c.name) }
-                    >
-                      {c.name}
-                    </a>
-                    {' | ' }
-                  </span>
-                )
-              })
-            }
+          <Grid.Column computer={10} tablet={16} mobile={16}>
+            <Header as='h3'>Parts</Header>
+            { !categories.length && <Header as='h4'>No Parts Added</Header> }
+            <Menu vertical fluid>
+              { categories.sort(this.alpha).map( c => {
+                  return (
+                    <Menu.Item key={c.id}>
+                      <a
+                        key={c.id}
+                        style={{ cursor: 'pointer' }}
+                        onClick={ () => this.toggleCategory(c.id, c.name) }
+                      >
+                        {c.name}
+                      </a>
+                    </Menu.Item>
+                  )
+                })
+              }
+            </Menu>
           </Grid.Column>
         </Grid.Row>
       )

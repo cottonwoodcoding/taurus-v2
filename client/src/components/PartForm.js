@@ -5,8 +5,8 @@ import { setFlash } from '../actions/flash';
 import { addPart } from '../actions/parts';
 
 class PartForm extends React.Component {
-  defaults = { 
-    name: '', 
+  defaults = {
+    name: '',
     description: '',
     number: '',
     price: '',
@@ -19,7 +19,7 @@ class PartForm extends React.Component {
     specValue: '',
     fetature: '',
     onSale: false
-  } 
+  }
 
   state = {...this.defaults}
 
@@ -39,7 +39,7 @@ class PartForm extends React.Component {
     const onSale = this.state.onSale
     if (onSale)
       this.setState({ onSale: false, sale_price: '' })
-    else 
+    else
       this.setState({ onSale: true });
   }
 
@@ -87,7 +87,7 @@ class PartForm extends React.Component {
     return (
       <Form id="form" onSubmit={this.handleSubmit}>
         <Form.Select
-          label="category"
+          label="Category"
           placeholder="Select a category"
           options={this.options()}
           onChange={(e, { value }) => this.setState({ category: value }) }
@@ -147,11 +147,11 @@ class PartForm extends React.Component {
           { specifications.map( (s,i) => {
               return (
                 <List.Item key={i}>
-                  <List.Icon 
-                    name="delete" 
+                  <List.Icon
+                    name="delete"
                     color="red"
                     style={{ cursor: 'pointer' }}
-                    onClick={() => this.removeSpec(s.specName)} 
+                    onClick={() => this.removeSpec(s.specName)}
                   />
                   <List.Content>{s.specName}</List.Content>
                 </List.Item>
@@ -161,7 +161,7 @@ class PartForm extends React.Component {
         </List>
         <Grid columns={16}>
           <Grid.Row>
-            <Grid.Column width={8}>
+            <Grid.Column computer={8} tablet={16} mobile={16}>
               <Form.Input
                 id="specName"
                 label="Specification Name"
@@ -169,7 +169,7 @@ class PartForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Grid.Column>
-            <Grid.Column width={8}>
+            <Grid.Column computer={8} tablet={16} mobile={16}>
               <Form.Input
                 id="specValue"
                 label="Specification Value"
@@ -177,7 +177,7 @@ class PartForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Grid.Column>
-            <Grid.Column width={16}>
+            <Grid.Column computer={8} tablet={16} mobile={16}>
               <Button fluid basic color="blue" type="button" onClick={this.addSpec}>Add Spec +</Button>
             </Grid.Column>
           </Grid.Row>
@@ -188,11 +188,11 @@ class PartForm extends React.Component {
           { features.map( (f,i) => {
               return (
                 <List.Item key={i}>
-                  <List.Icon 
-                    name="delete" 
+                  <List.Icon
+                    name="delete"
                     color="red"
                     style={{ cursor: 'pointer' }}
-                    onClick={() => this.removeFeature(f)} 
+                    onClick={() => this.removeFeature(f)}
                   />
                   <List.Content>{f}</List.Content>
                 </List.Item>
@@ -208,7 +208,7 @@ class PartForm extends React.Component {
         />
         <Button fluid basic color="blue" type="button" onClick={this.addFeature}>Add Feature +</Button>
 
-        <Header color="red" as="h3">//TODO Add Images</Header>
+        <Header color="red" as="h3">TODO: Add Images</Header>
         <Button fluid primary>Add Part</Button>
       </Form>
     )
@@ -217,7 +217,7 @@ class PartForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { partCategories: state.partCategories }
+  return { partCategories: state.partCategories };
 }
 
 export default connect(mapStateToProps)(PartForm);

@@ -16,7 +16,7 @@ class FetchUser extends React.Component {
     } else {
       Auth.configure({ apiUrl: '/api' });
       Auth.validateToken()
-        .then( user => { this.props.dispatch({ type: 'LOGIN', user }) })
+        .then( user => { dispatch({ type: 'LOGIN', user }) })
         .then( () => this.loaded() )
         .catch( () => { this.loaded() } )
     }

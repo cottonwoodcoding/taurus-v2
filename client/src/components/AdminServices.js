@@ -2,7 +2,7 @@ import React from 'react';
 import { serviceCategories } from '../actions/serviceCategories';
 import { addService, services } from '../actions/services';
 import { connect } from 'react-redux';
-import { Grid, Form, Button, Divider } from 'semantic-ui-react';
+import { Grid, Form, Button, Divider, Header } from 'semantic-ui-react';
 import { setFlash } from '../actions/flash';
 import ServiceCategory from './ServiceCategory';
 
@@ -11,8 +11,9 @@ class AdminServices extends React.Component {
   state = { ...this.defaults }
 
   componentDidMount() {
-    this.props.dispatch(serviceCategories())
-    this.props.dispatch(services())
+    let { dispatch } = this.props;
+    dispatch(serviceCategories())
+    dispatch(services())
   }
 
   handleChange = (e) => {
@@ -45,10 +46,11 @@ class AdminServices extends React.Component {
     let { serviceCategories } = this.props;
     return (
       <Grid.Row>
-        <Grid.Column computer={6} tablet={6} mobile={16}>
+        <Grid.Column computer={6} tablet={16} mobile={16}>
+          <Header as='h3'>Add A New Service</Header>
           <Form onSubmit={this.handleSubmit}>
             <Form.Select
-              label="category"
+              label="Category"
               placeholder="Select a category"
               options={this.options()}
               onChange={(e, { value }) => this.setState({ category: value }) }
@@ -69,10 +71,13 @@ class AdminServices extends React.Component {
             />
             <Button>Add Service</Button>
           </Form>
+          <Divider clearing hidden />
         </Grid.Column>
         <Grid.Column computer={10} tablet={10} mobile={16}>
           <Grid columns={16}>
+            <Header as='h3'>Services</Header>
             <Grid.Row>
+              { !serviceCategories.length && <Header as='h4'>No Services Added</Header> }
               { serviceCategories.map( sc => {
                   return (
                     <Grid.Column computer={16} key={sc.id}>
