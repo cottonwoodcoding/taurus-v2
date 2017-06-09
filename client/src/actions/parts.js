@@ -31,6 +31,19 @@ export const addPart = (part) => {
   }
 }
 
+export const deletePart = (id) => {
+  return (dispatch, getState) => {
+    $.ajax({
+      url: `/api/parts/${id}`,
+      method: 'DELETE'
+    }).done( () => {
+      let { parts } = getState()
+      dispatch({ type: 'PARTS', parts: parts.filter( p => p.id !== id ) })
+      dispatch(setFlash('Part Deleted'))
+    });
+  }
+}
+
 export const updatePart = (part, id) => {
   return (dispatch) => {
     let data = JSON.stringify(part)

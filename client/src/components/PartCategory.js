@@ -1,8 +1,8 @@
 import React from 'react'
-import { Header, Grid } from 'semantic-ui-react';
+import { Header, Grid, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getParts } from '../actions/parts';
+import { getParts, deletePart } from '../actions/parts';
 
 class PartCategory extends React.Component {
   state = { parts: [] }
@@ -12,8 +12,14 @@ class PartCategory extends React.Component {
     dispatch(getParts(id))
   }
 
+  deletePart = (id) => {
+    if (confirm('Really delete this part?')) { // eslint-disable-line no-restricted-globals
+      this.props.dispatch(deletePart(id))
+    }
+  }
+
   render() {
-    let { category: { name }, parts } = this.props;
+    let { category: { name }, parts, admin } = this.props;
     return (
       <div>
         <Header as="h3">{name}</Header>
@@ -23,6 +29,14 @@ class PartCategory extends React.Component {
                 return (
                   <Grid.Column computer={3} mobile={12} key={p.id}>
                     <Link to={`/parts/${p.id}`}>{p.name}</Link>
+                    { admin &&
+                      <Icon 
+                        color="red" 
+                        name="trash" 
+                        style={{ cursor: 'pointer' }}
+                        onClick={ () => this.deletePart(p.id) }
+                      />
+                    }
                   </Grid.Column>
                 )
               })
@@ -35,7 +49,7 @@ class PartCategory extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { parts: state.parts }
+  return { admin: state.auth.isAuthenticated, parts: state.parts }
 }
 
 export default connect(mapStateToProps)(PartCategory);

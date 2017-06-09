@@ -26,6 +26,10 @@ class Api::PartsController < ApplicationController
       failed_request(@service)
     end
   end
+
+  def destroy
+    @part.destroy
+  end
   
   private 
     def set_part_category
