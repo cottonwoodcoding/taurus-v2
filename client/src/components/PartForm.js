@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { List, Grid, Divider, Header, Form, Button } from 'semantic-ui-react';
 import { setFlash } from '../actions/flash';
-import { addPart } from '../actions/parts';
+import { addPart, updatePart } from '../actions/parts';
 
 class PartForm extends React.Component {
   defaults = {
@@ -18,10 +18,23 @@ class PartForm extends React.Component {
     specName: '',
     specValue: '',
     fetature: '',
-    onSale: false
+    onSale: false,
   }
 
   state = {...this.defaults}
+
+  componentDidMount() {
+    let { part } = this.props;
+    if (part) {
+      let specifications = []
+      if (part.specifications) {
+        specifications = JSON.parse(part.specifications.replace(/=>/g, ":"))
+      }
+      let category = part.part_category_id
+      let onSale = part.sale_price ? true : false
+      this.setState({...part, specifications, category, onSale })
+    }
+  }
 
   options = () => {
     let { partCategories } = this.props;
@@ -70,12 +83,17 @@ class PartForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let { dispatch } = this.props;
+    let { dispatch, part, toggleEdit } = this.props;
     let { onSale, feature, specName, specValue, ...rest } = this.state;
     if (rest.category) {
-      let { category, ...part } = rest
-      dispatch(addPart({part_category_id: category, ...part}))
-      this.setState({ ...this.defaults })
+      let { category, ...p } = rest
+      if (part) {
+        dispatch(updatePart({part_category_id: category, ...p}, part.id))
+        this.props.toggleEdit()
+      } else {
+        dispatch(addPart({part_category_id: category, ...p}))
+        this.setState({ ...this.defaults })
+      }
     } else {
       dispatch(setFlash('Please select a category', 'error'))
       window.scrollTo(0,0)
@@ -83,7 +101,7 @@ class PartForm extends React.Component {
   }
 
   render() {
-    let { name, description, number, price, sale_price, qty_on_hand, images, specifications, features, onSale, specName, specValue, feature, category } = this.state;
+    let { name, description, number, price, sale_price, qty_on_hand, images, specifications, features, onSale, specName, specValue, feature, category, part_category_id } = this.state;
     return (
       <Form id="form" onSubmit={this.handleSubmit}>
         <Form.Select
@@ -91,32 +109,33 @@ class PartForm extends React.Component {
           placeholder="Select a category"
           options={this.options()}
           onChange={(e, { value }) => this.setState({ category: value }) }
+          value={category || ''}
         />
         <Form.Input
           required
           label="Name"
           id="name"
-          value={name}
+          value={name || ''}
           onChange={this.handleChange}
         />
         <Form.Input
           required
           label="Description"
           id="description"
-          value={description}
+          value={description || ''}
           onChange={this.handleChange}
         />
         <Form.Input
           label="Part Number"
           id="number"
-          value={number}
+          value={number || ''}
           onChange={this.handleChange}
         />
         <Form.Input
           label="Price"
           id="price"
           type="number"
-          value={price}
+          value={price || ''}
           onChange={this.handleChange}
         />
         { onSale &&
@@ -124,7 +143,7 @@ class PartForm extends React.Component {
             label="Sale Price"
             id="sale_price"
             type="number"
-            value={sale_price}
+            value={sale_price || ''}
             onChange={this.handleChange}
           />
         }
@@ -138,7 +157,7 @@ class PartForm extends React.Component {
           id="qty_on_hand"
           type="number"
           step="1"
-          value={qty_on_hand}
+          value={qty_on_hand || ''}
           onChange={this.handleChange}
         />
         <Header as="h4">Specification</Header>
@@ -165,7 +184,7 @@ class PartForm extends React.Component {
               <Form.Input
                 id="specName"
                 label="Specification Name"
-                value={specName}
+                value={specName || ''}
                 onChange={this.handleChange}
               />
             </Grid.Column>
@@ -173,7 +192,7 @@ class PartForm extends React.Component {
               <Form.Input
                 id="specValue"
                 label="Specification Value"
-                value={specValue}
+                value={specValue || ''}
                 onChange={this.handleChange}
               />
             </Grid.Column>
@@ -203,13 +222,16 @@ class PartForm extends React.Component {
         <Form.Input
           id="feature"
           label="Feature"
-          value={feature}
+          value={feature || ''}
           onChange={this.handleChange}
         />
         <Button fluid basic color="blue" type="button" onClick={this.addFeature}>Add Feature +</Button>
 
         <Header color="red" as="h3">TODO: Add Images</Header>
-        <Button fluid primary>Add Part</Button>
+        { this.props.part &&
+          <Button fluid onClick={this.props.toggleEdit}>Cancel</Button>
+        }
+        <Button fluid primary>{this.props.part ? 'Update' : 'Add'} Part</Button>
       </Form>
     )
   }

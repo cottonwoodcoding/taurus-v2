@@ -1,9 +1,13 @@
 class Api::PartsController < ApplicationController
-  before_action :set_part_category, except: :destroy
-  before_action :set_part, only: [:update, :destroy]
+  before_action :set_part_category, except: [:destroy, :show]
+  before_action :set_part, only: [:update, :destroy, :show]
 
   def index
     render json: @part_category.parts
+  end
+
+  def show
+    render json: @part
   end
 
   def create

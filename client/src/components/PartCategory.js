@@ -21,7 +21,7 @@ class PartCategory extends React.Component {
           <Grid.Row>
             { parts.map( p => {
                 return (
-                  <Grid.Column computer={3} mobile={12}>
+                  <Grid.Column computer={3} mobile={12} key={p.id}>
                     <Link to={`/parts/${p.id}`}>{p.name}</Link>
                   </Grid.Column>
                 )

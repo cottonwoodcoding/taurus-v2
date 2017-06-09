@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       resources :parts
     end
 
-    resources :parts, only: [:index]
+    resources :parts, only: [:index, :show]
   end
 
   get '*unmatched_route', to: 'application#client'
