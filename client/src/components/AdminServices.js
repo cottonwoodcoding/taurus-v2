@@ -43,36 +43,39 @@ class AdminServices extends React.Component {
 
   render() {
     let { name, description, category } = this.state;
-    let { serviceCategories } = this.props;
+    let { serviceCategories, hideForm } = this.props;
     return (
       <Grid.Row>
-        <Grid.Column computer={6} tablet={16} mobile={16}>
-          <Header as='h3'>Add A New Service</Header>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Select
-              label="Category"
-              placeholder="Select a category"
-              options={this.options()}
-              onChange={(e, { value }) => this.setState({ category: value }) }
-            />
-            <Form.Input
-              required
-              label="Name"
-              id="name"
-              value={name}
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              required
-              label="Description"
-              id="description"
-              value={description}
-              onChange={this.handleChange}
-            />
-            <Button>Add Service</Button>
-          </Form>
-          <Divider clearing hidden />
-        </Grid.Column>
+        { hideForm ?
+          <Divider hidden /> :
+          <Grid.Column computer={6} tablet={16} mobile={16}>
+            <Header as='h3'>Add A New Service</Header>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Select
+                label="Category"
+                placeholder="Select a category"
+                options={this.options()}
+                onChange={(e, { value }) => this.setState({ category: value }) }
+              />
+              <Form.Input
+                required
+                label="Name"
+                id="name"
+                value={name}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                required
+                label="Description"
+                id="description"
+                value={description}
+                onChange={this.handleChange}
+              />
+              <Button>Add Service</Button>
+            </Form>
+            <Divider clearing hidden />
+          </Grid.Column>
+        }
         <Grid.Column computer={10} tablet={10} mobile={16}>
           <Grid columns={16}>
             <Header as='h3'>Services</Header>

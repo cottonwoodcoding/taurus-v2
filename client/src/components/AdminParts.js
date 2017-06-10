@@ -44,6 +44,7 @@ class AdminParts extends Component {
           >
             Back
           </a>
+          <Divider hidden />
           <PartCategory category={category} />
         </div>
       )
@@ -59,7 +60,7 @@ class AdminParts extends Component {
             </Grid.Column>
           }
           <Grid.Column computer={10} tablet={16} mobile={16}>
-            <Header as='h3'>Parts</Header>
+            <Header as='h3'>Category</Header>
             { !categories.length && <Header as='h4'>No Parts Added</Header> }
             { cats.length > 0 &&
               <Menu vertical fluid>

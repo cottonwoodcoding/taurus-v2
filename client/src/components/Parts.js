@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Divider } from 'semantic-ui-react';
 import AdminParts from './AdminParts';
 import Search from './Search';
 import { connect } from 'react-redux';
@@ -14,6 +15,7 @@ class Parts extends Component {
     return(
       <div>
         <Search toggleSearching={this.toggleSearching} />
+        <Divider />
         <AdminParts hideForm={true} toggleSearching={this.toggleSearching} searching={this.props.validQuery} />
       </div>
     );

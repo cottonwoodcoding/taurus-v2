@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import AdminServices from './AdminServices';
 
 class Services extends Component {
   render() {
     return(
-      <div>Services</div>
+      <AdminServices hideForm={true} />
     );
   }
 }
