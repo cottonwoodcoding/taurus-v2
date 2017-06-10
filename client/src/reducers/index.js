@@ -8,6 +8,7 @@ import parts from './parts';
 import part from './part';
 import search from './search';
 import query from './query';
+import site from './site';
 
 const rootReducer = combineReducers({
   auth,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   part,
   search,
   query,
+  site,
 });
 
 export default rootReducer;

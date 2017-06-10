@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { clearFlash } from './actions/flash';
+import { setSite } from './actions/site';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Admin from './components/Admin';
@@ -18,9 +19,12 @@ import GetPartCategories from './components/GetPartCategories';
 
 class App extends Component {
   componentDidMount() {
+    let { dispatch } = this.props;
+
+    dispatch(setSite());
     Auth.configure({ apiUrl: '/api' });
     Auth.validateToken()
-          .then( user => { this.props.dispatch({ type: 'LOGIN', user }) })
+          .then( user => { dispatch({ type: 'LOGIN', user }) })
   }
 
   componentDidUpdate() {

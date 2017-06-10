@@ -20,7 +20,7 @@ class PartCategory extends React.Component {
     let { parts, query, dispatch, category: { id } } = this.props;
     let validQuery = query.length > 2
     if (validQuery && nextProps.query.length <= 2) {
-      if (!parts.length) 
+      if (!parts.length)
         dispatch(getParts(id))
     }
   }
@@ -38,12 +38,12 @@ class PartCategory extends React.Component {
     return (
       <div>
         <Header as="h3">{name}</Header>
-        { validQuery && 
-          <Header 
-            as="h4" 
-            textAlign="center" 
+        { validQuery &&
+          <Header
+            as="h4"
+            textAlign="center"
             style={{ color: 'blue', cursor: 'pointer' }}
-            onClick={() => { 
+            onClick={() => {
               dispatch(getParts(id))
               dispatch(clearSearch())
             }}
@@ -58,9 +58,9 @@ class PartCategory extends React.Component {
                   <Grid.Column computer={3} mobile={12} key={p.id}>
                     <Link to={`/parts/${p.id}`}>{p.name}</Link>
                     { admin &&
-                      <Icon 
-                        color="red" 
-                        name="trash" 
+                      <Icon
+                        color="red"
+                        name="trash"
                         style={{ cursor: 'pointer' }}
                         onClick={ () => this.deletePart(p.id) }
                       />

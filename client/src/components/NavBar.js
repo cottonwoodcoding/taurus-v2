@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Menu, Image } from 'semantic-ui-react';
 import { handleLogout } from '../actions/auth';
-import logo from '../images/logo-inverted.png';
 
 class NavBar extends Component {
 
@@ -67,7 +66,7 @@ class NavBar extends Component {
       <Menu inverted stackable>
         <Link to='/'>
           <Menu.Item name='logo' active={false}>
-            <Image src={logo} size='small' />
+            <Image src={this.props.navLogoUrl} size='small' />
           </Menu.Item>
         </Link>
           { this.buildNavs(navs) }
@@ -77,7 +76,10 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { auth: state.auth };
+  return {
+    auth: state.auth,
+    navLogoUrl: state.site.nav_logo_url,
+  };
 }
 
 export default withRouter(connect(mapStateToProps)(NavBar));

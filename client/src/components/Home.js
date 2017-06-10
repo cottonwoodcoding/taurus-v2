@@ -1,19 +1,19 @@
 import React from 'react';
 import { Image, Segment, Embed, Grid, Header } from 'semantic-ui-react';
-import logo from '../images/logo.svg';
+import { connect } from 'react-redux';
 
-const Home = () => (
+const Home = ({ site }) => (
   <Segment basic>
-    <Image src={logo} size='medium' centered />
-    <Header as='h1' textAlign='center'>(801) 266-4420</Header>
+    <Image src={site.main_logo_url} size='medium' centered />
+    <Header as='h1' textAlign='center'>{site.phone}</Header>
     <Grid>
       <Grid.Column computer={8} tablet={16} mobile={16}>
         <Grid.Row>
           <Header as='h1' textAlign='center' className='gradient-text'>Over 30 Years Experience</Header>
           <Header as='h1' textAlign='center' className='gradient-text'>Solid, Dependable Service</Header>
           <Header as='h1' textAlign='center' className='gradient-text'>Licensed & Insured</Header>
-          <Header as='h1' textAlign='center' className='gradient-text'>4645 S. 500 W.</Header>
-          <Header as='h1' textAlign='center' className='gradient-text'>Murray UT, 84123</Header>
+          <Header as='h1' textAlign='center' className='gradient-text'>{ site.street }</Header>
+          <Header as='h1' textAlign='center' className='gradient-text'>{site.city} {site.state}, {site.zip}</Header>
         </Grid.Row>
       </Grid.Column>
       <Grid.Column computer={8} tablet={16} mobile={16}>
@@ -29,4 +29,8 @@ const Home = () => (
   </Segment>
 )
 
-export default Home;
+const mapStateToProps = (state) => {
+  return { site: state.site };
+}
+
+export default connect(mapStateToProps)(Home);

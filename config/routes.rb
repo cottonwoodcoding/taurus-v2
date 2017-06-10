@@ -14,6 +14,11 @@ Rails.application.routes.draw do
 
     get '/parts/search'
     resources :parts, only: [:index, :show, :destroy]
+
+    # Site Resources
+    get 'site', to: 'site#show'
+    put 'site/file_upload', to: 'site#file_upload'
+    put 'site', to: 'site#update'
   end
 
   get '*unmatched_route', to: 'application#client'

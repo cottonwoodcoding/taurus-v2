@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: taurus-trailer
+  api_key: '444814715772147'
+  api_secret: TjUy-Hq0kNNjbFw0o6SuIkPV1Ns
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: taurus-trailer
+  api_key: '444814715772147'
+  api_secret: TjUy-Hq0kNNjbFw0o6SuIkPV1Ns
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: taurus-trailer
+  api_key: '444814715772147'
+  api_secret: TjUy-Hq0kNNjbFw0o6SuIkPV1Ns
+  enhance_image_tag: true
+  static_image_support: false

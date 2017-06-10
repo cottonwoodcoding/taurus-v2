@@ -17,6 +17,8 @@ gem 'font-awesome-rails'
 gem 'devise'
 gem 'omniauth'
 gem 'devise_token_auth'
+# Cloudnary For Pictures
+gem 'cloudinary'
 
 group :development, :test do
   # Call binding.pry anywhere to stop execution of your code and debugger

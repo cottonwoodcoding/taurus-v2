@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602210115) do
+ActiveRecord::Schema.define(version: 20170610164652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,19 @@ ActiveRecord::Schema.define(version: 20170602210115) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["service_category_id"], name: "index_services_on_service_category_id"
+  end
+
+  create_table "sites", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "street", null: false
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "zip", null: false
+    t.string "phone", null: false
+    t.string "main_logo_url", null: false
+    t.string "nav_logo_url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
