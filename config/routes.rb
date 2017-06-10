@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :parts
     end
 
+    get '/parts/search'
     resources :parts, only: [:index, :show, :destroy]
   end
 

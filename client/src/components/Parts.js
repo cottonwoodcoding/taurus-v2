@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
+import AdminParts from './AdminParts';
+import Search from './Search';
+import { connect } from 'react-redux';
 
 class Parts extends Component {
+  state = { searching: false }
+
+  toggleSearching = (searching) => {
+    this.setState({ searching });
+  }
+
   render() {
     return(
-      <div>Parts</div>
+      <div>
+        <Search toggleSearching={this.toggleSearching} />
+        <AdminParts hideForm={true} toggleSearching={this.toggleSearching} searching={this.props.validQuery} />
+      </div>
     );
   }
 }
 
-export default Parts;
+const mapStateToProps = (state) => {
+  return { validQuery: state.query.length > 2 }
+}
+
+export default connect(mapStateToProps)(Parts);

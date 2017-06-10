@@ -6,6 +6,8 @@ import partCategories from './partCategories';
 import services from './services';
 import parts from './parts';
 import part from './part';
+import search from './search';
+import query from './query';
 
 const rootReducer = combineReducers({
   auth,
@@ -14,7 +16,9 @@ const rootReducer = combineReducers({
   partCategories,
   services,
   parts,
-  part
+  part,
+  search,
+  query,
 });
 
 export default rootReducer;

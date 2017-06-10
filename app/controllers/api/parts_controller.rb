@@ -1,5 +1,5 @@
 class Api::PartsController < ApplicationController
-  before_action :set_part_category, except: [:destroy, :show]
+  before_action :set_part_category, except: [:destroy, :show, :search]
   before_action :set_part, only: [:update, :destroy, :show]
 
   def index
@@ -29,6 +29,11 @@ class Api::PartsController < ApplicationController
 
   def destroy
     @part.destroy
+  end
+
+  def search
+    parts = Part.search(params[:query])
+    render json: parts
   end
   
   private 
