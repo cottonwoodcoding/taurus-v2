@@ -27,15 +27,15 @@ class Search extends React.Component {
     let { query } = this.props;
 
     return (
-      <Input 
-        fluid 
-        placeholder='Search...' 
+      <Input
+        fluid
+        placeholder='Search...'
         onChange={this.handleChange}
         value={query}
         action
       >
         <input/>
-        <Button 
+        <Button
           icon
           onClick={this.clear}
         >
@@ -51,4 +51,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(Search);
-

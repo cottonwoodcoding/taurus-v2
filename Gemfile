@@ -19,6 +19,8 @@ gem 'omniauth'
 gem 'devise_token_auth'
 # Cloudnary For Pictures
 gem 'cloudinary'
+# Sendgrid for emails
+gem 'sendgrid'
 
 group :development, :test do
   # Call binding.pry anywhere to stop execution of your code and debugger
@@ -27,6 +29,8 @@ group :development, :test do
   gem 'rspec-rails'
   # Use Factory Girl for generating random test data
   gem 'factory_girl_rails'
+  # DotEnv
+  gem 'dotenv-rails'
 end
 
 group :development do

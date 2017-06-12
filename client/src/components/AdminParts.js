@@ -24,7 +24,7 @@ class AdminParts extends Component {
     if (this.props.searching) {
       let ids = this.props.search.map( c => c.part_category_id )
       return categories.filter( c => ids.includes(c.id) )
-    } else { 
+    } else {
       return categories;
     }
   }
@@ -38,8 +38,8 @@ class AdminParts extends Component {
         <div>
           <a
             style={{ cursor: 'pointer' }}
-            onClick={ () => { 
-              this.toggleCategory({ id: 0 }) 
+            onClick={ () => {
+              this.toggleCategory({ id: 0 })
               this.props.dispatch(clearSearch())
             }}
           >
@@ -60,7 +60,7 @@ class AdminParts extends Component {
             </Grid.Column>
           }
           <Grid.Column computer={10} tablet={16} mobile={16}>
-            <Header as='h3'>Category</Header>
+            <Header as='h1' textAlign='center'>Part Categories</Header>
             { !categories.length && <Header as='h4'>No Parts Added</Header> }
             { cats.length > 0 &&
               <Menu vertical fluid>
@@ -81,7 +81,7 @@ class AdminParts extends Component {
               </Menu>
             }
             { cats.length === 0 && this.props.searching &&
-              <Header as="h3" textAlign="center">No results found</Header>
+              <Header as="h1" textAlign="center">No results found</Header>
             }
           </Grid.Column>
         </Grid.Row>

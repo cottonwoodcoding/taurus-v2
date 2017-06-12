@@ -77,10 +77,11 @@ class AdminServices extends React.Component {
           </Grid.Column>
         }
         <Grid.Column computer={10} tablet={10} mobile={16}>
+          <Header as='h1' textAlign='center'>Our Services</Header>
+          <Divider clearing />
           <Grid columns={16}>
-            <Header as='h3'>Services</Header>
             <Grid.Row>
-              { !serviceCategories.length && <Header as='h4'>No Services Added</Header> }
+              { !serviceCategories.length && <Header as='h1'>No Services Added</Header> }
               { serviceCategories.map( sc => {
                   return (
                     <Grid.Column computer={16} key={sc.id}>

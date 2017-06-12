@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :api do
+    get 'contact/create'
+  end
+
   mount_devise_token_auth_for 'User', at: 'api/auth'
 
   namespace :api do
@@ -20,6 +24,9 @@ Rails.application.routes.draw do
     get 'site', to: 'site#show'
     put 'site/file_upload', to: 'site#file_upload'
     put 'site', to: 'site#update'
+
+    # Contact Resources
+    post 'contact', to: 'contact#create'
   end
 
   get '*unmatched_route', to: 'application#client'
