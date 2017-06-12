@@ -14,7 +14,7 @@ export const getParts = (id) => {
   }
 }
 
-export const addPart = (part) => {
+export const addPart = (part, cb = null) => {
   return (dispatch) => {
     let data = JSON.stringify(part)
     $.ajax({
@@ -23,6 +23,8 @@ export const addPart = (part) => {
       data: { part: data }
     }).done( p => {
       dispatch(setFlash(`${p.name} was added`, 'success'))
+      if (cb) 
+        cb(p)
       window.scrollTo(0,0)
     }).fail( (data) => {
       dispatch(setFlash('There was a problem adding the part', 'error'))
@@ -60,4 +62,8 @@ export const updatePart = (part, id) => {
       window.scrollTo(0,0)
     });
   }
+}
+
+export const uploadPartImage = (part) => {
+  return { type: 'PART', part }
 }

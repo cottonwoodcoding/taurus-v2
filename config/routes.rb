@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
 
     get '/parts/search'
+    put '/parts/:id/file_upload', to: 'parts#file_upload'
     resources :parts, only: [:index, :show, :destroy]
 
     # Site Resources

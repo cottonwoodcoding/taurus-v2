@@ -1,6 +1,6 @@
 class Api::PartsController < ApplicationController
-  before_action :set_part_category, except: [:destroy, :show, :search]
-  before_action :set_part, only: [:update, :destroy, :show]
+  before_action :set_part_category, except: [:destroy, :show, :search, :file_upload]
+  before_action :set_part, only: [:update, :destroy, :show, :file_upload]
 
   def index
     render json: @part_category.parts
@@ -17,6 +17,11 @@ class Api::PartsController < ApplicationController
     else
       failed_request(@service)
     end
+  end
+
+  def file_upload
+    url = Cloudinary::Uploader.upload(params[:file].path)['url']
+    @part.update(image: url) ? render(json: @part) : failed_request(@part)
   end
 
   def update
@@ -49,7 +54,7 @@ class Api::PartsController < ApplicationController
       params[:part] = JSON.parse(params[:part])
       params.require(:part).permit(
         :name, :description, :number, :price, :sale_price, :qty_on_hand,
-        images: [], features: [], 
+        :image, features: [], 
         specifications: [:specName, :specValue ]
       )
     end
