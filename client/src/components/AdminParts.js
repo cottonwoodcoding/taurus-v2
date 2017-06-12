@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PartForm from './PartForm';
-import { Grid, Header, Divider, Card, Image, Segment } from 'semantic-ui-react';
+import { Grid, Header, Divider, Card, Image, Segment, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PartCategory from './PartCategory';
 import { clearSearch } from '../actions/search';
@@ -38,12 +38,13 @@ class AdminParts extends Component {
       return (
         <div>
           <a
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', color: 'white' }}
             onClick={ () => {
               this.toggleCategory({ id: 0 })
               this.props.dispatch(clearSearch())
             }}
           >
+            <Icon name="arrow left" inverted />
             Back
           </a>
           <Divider hidden />

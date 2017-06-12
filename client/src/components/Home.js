@@ -1,14 +1,18 @@
 import React from 'react';
-import { Image, Segment, Embed, Grid, Header } from 'semantic-ui-react';
+import { Image, Segment, Embed, Grid, Header, Icon, Divider } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Search from './Search';
 
 const Home = ({ site }) => (
   <Segment basic>
-    <Image src={site.main_logo_url} size='medium' centered />
-    <Header as='h1' textAlign='center'>{site.phone}</Header>
     <Grid>
       <Grid.Column computer={8} tablet={16} mobile={16}>
         <Grid.Row>
+          <Divider hidden/>
+          <Image src={site.main_logo_url} size='large' centered />
+          <Divider hidden/>
+          <Divider hidden />
           <Header as='h1' textAlign='center' className='gradient-text'>Over 30 Years Experience</Header>
           <Header as='h1' textAlign='center' className='gradient-text'>Solid, Dependable Service</Header>
           <Header as='h1' textAlign='center' className='gradient-text'>Licensed & Insured</Header>
@@ -18,6 +22,40 @@ const Home = ({ site }) => (
       </Grid.Column>
       <Grid.Column computer={8} tablet={16} mobile={16}>
         <Grid.Row>
+          <Divider />
+          <Header as='h1' textAlign='center'>{site.phone}</Header>
+          <Divider />
+          <Grid columns={3}>  
+            <Grid.Row>
+              <Grid.Column>
+                <Link to="/services">
+                  <Segment basic textAlign="center">
+                    <Header as="h4">Services</Header>
+                    <Icon inverted size="big" name="settings" />
+                  </Segment>
+                </Link>
+              </Grid.Column>
+              <Grid.Column>
+                <Link to="/parts">
+                  <Segment basic textAlign="center">
+                    <Header as="h4">Parts</Header>
+                    <Icon inverted size="big" name="wrench" />
+                  </Segment>
+                </Link>
+              </Grid.Column>
+              <Grid.Column>
+                <Link to="/contact">
+                  <Segment basic textAlign="center">
+                    <Header as="h4">Contact Us</Header>
+                    <Icon inverted size="big" name="mail" />
+                  </Segment>
+                </Link>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          <Divider hidden />
+          <Search />
+          <Divider />
           <Embed
             active
             aspectRatio='4:3'

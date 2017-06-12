@@ -73,7 +73,7 @@ class PartCategory extends React.Component {
             Show All
           </Header>
         }
-        <Grid divided='vertically' columns={12}>
+        <Grid centered divided='vertically' columns={12}>
           <Grid.Row>
             { visibleParts.map( p => {
                 return (
