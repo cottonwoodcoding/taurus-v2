@@ -64,11 +64,11 @@ class AdminParts extends Component {
             <Header as='h1' textAlign='center'>Part Categories</Header>
             { !categories.length && <Header as='h4'>No Parts Added</Header> }
             { cats.length > 0 &&
-              <Grid columns={12} divided='vertically'>
+              <Grid columns={12} centered divided='vertically'>
                 <Grid.Row>
                   { cats.map( c => {
                       return (
-                        <Grid.Column key={c.id} computer={4} tablet={4} mobile={12}>
+                        <Grid.Column key={c.id} computer={6} tablet={6} mobile={12}>
                           <Card>
                             <Card.Content>
                               <Segment basic textAlign="center" vertialAlign="middle">

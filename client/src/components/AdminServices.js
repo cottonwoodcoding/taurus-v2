@@ -65,7 +65,6 @@ class AdminServices extends React.Component {
                 onChange={this.handleChange}
               />
               <Form.Input
-                required
                 label="Description"
                 id="description"
                 value={description}

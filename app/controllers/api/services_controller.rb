@@ -3,7 +3,7 @@ class Api::ServicesController < ApplicationController
   before_action :set_service, only: [:update, :destroy]
 
   def index
-    render json: Service.all
+    render json: Service.all.order('lower(name)')
   end
 
   def create
@@ -16,7 +16,7 @@ class Api::ServicesController < ApplicationController
   end
 
   def update
-    if @service.update(service_parmas)  
+    if @service.update(service_parmas)
       render json: @service
     else
       failed_request(@service)
@@ -36,7 +36,7 @@ class Api::ServicesController < ApplicationController
     def set_service
       @service = Service.find(params[:id])
     end
-    
+
     def service_params
       params.require(:service).permit(:name, :description)
     end
