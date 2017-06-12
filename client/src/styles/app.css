@@ -9,6 +9,10 @@ html, body {
   background-color: grey;
 }
 
+h1, h2, h3, h4, a, div, button {
+  font-family: 'Patua One', cursive !important;
+}
+
 .ui.segment {
   padding: 0 !important;
 }
