@@ -23,7 +23,7 @@ export const deleteServiceCategory = (id) => {
   }
 }
 
-export const addServiceCategory = (name) => {
+export const addServiceCategory = (name, cb = null) => {
   return (dispatch) => {
     $.ajax({
       url: '/api/service_categories',
@@ -31,6 +31,8 @@ export const addServiceCategory = (name) => {
       data: { service_category: { name }}
     }).done( category => {
       dispatch({ type: 'ADD_SERVICE_CATEGORY', category })
+      if (cb)
+        cb(category)
     }).fail( err => {
       dispatch(setFlash(err.responseJSON.errors, 'error'))
     });
@@ -49,4 +51,8 @@ export const editServiceCategory = (id, name) => {
       dispatch(setFlash(err.responseJSON.errors, 'error'))
     });
   }
+}
+
+export const uploadServiceImage = (category) => {
+  return ({ type: 'EDIT_SERVICE_CATEGORY', category });
 }

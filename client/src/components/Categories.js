@@ -1,25 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { serviceCategories, deleteServiceCategory, addServiceCategory, editServiceCategory } from '../actions/serviceCategories';
-import { partCategories, deletePartCategory, addPartCategory, editPartCategory} from '../actions/partCategories';
-import { Header, Form, Button, Divider, List, Menu } from 'semantic-ui-react';
+import { 
+  serviceCategories, 
+  deleteServiceCategory, 
+  addServiceCategory, 
+  editServiceCategory,
+  uploadServiceImage
+} from '../actions/serviceCategories';
+import { 
+  partCategories, 
+  deletePartCategory, 
+  addPartCategory, 
+  editPartCategory,
+  uploadPartImage,
+} from '../actions/partCategories';
+import { Header, Form, Button, Divider, List, Menu, Modal } from 'semantic-ui-react';
+import FileDrop from './FileDrop';
 
 class Categories extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { name: '', editing: [] };
+    this.state = { name: '', editing: [], category: {} };
     if (props.name === 'service') {
       this.add = addServiceCategory;
       this.remove = deleteServiceCategory;
       this.edit = editServiceCategory;
       this.getCategories = serviceCategories;
+      this.uploadImage = uploadServiceImage;
     } else {
       this.add = addPartCategory;
       this.remove = deletePartCategory;
       this.edit = editPartCategory;
       this.getCategories = partCategories;
+      this.uploadImage = uploadPartImage;
     }
+
   }
 
   toggleEdit = (id) => {
@@ -40,11 +56,14 @@ class Categories extends Component {
     this.setState({ name: e.target.value });
   }
 
+  catAdded = (category) => {
+    this.setState({ name: '', category });
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     let { state: { name }, props: { dispatch }, add} = this;
-    dispatch(add(name))
-    this.setState({ name: '' });
+    dispatch(add(name, this.catAdded))
   }
 
   deleteCat = (id) => {
@@ -96,6 +115,13 @@ class Categories extends Component {
                 label="Name"
                 defaultValue={c.name}
               />
+              <FileDrop
+                url={`/api/${this.props.name}_categories/${c.id}/file_upload`}
+                column="image"
+                action={this.uploadImage}
+                imgSrc={c.image}
+              />
+              <Divider hidden/>
               <Button type="button" onClick={() => this.toggleEdit(c.id)}>Cancel</Button>
               <Button>Save</Button>
             </Form>
@@ -107,9 +133,32 @@ class Categories extends Component {
 
   render() {
     let { name } = this.props;
+    let { category } = this.state;
     let title = name.charAt(0).toUpperCase() + name.slice(1);
     return (
       <div>
+        <Modal
+          closeIcon
+          onClose={() => { this.setState({ category: {} }) }}
+          open={category.id ? true : false }
+        >
+          <Modal.Header>Add Photo To {category.name}</Modal.Header>
+            <FileDrop
+              url={`/api/${this.props.name}_categories/${category.id}/file_upload`}
+              column="image"
+              action={this.uploadImage}
+              imgSrc={category.image}
+              cb={() => { this.setState({ category: {} }) }}
+            />
+            <Divider hidden/>
+            <Button 
+              primary
+              fluid 
+              onClick={ () => this.setState({ category: {} }) }
+            >
+              Use Default Image
+            </Button>
+        </Modal>
         <Header as="h2">Add A New {title} Category</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input

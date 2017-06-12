@@ -23,7 +23,7 @@ export const deletePartCategory = (id) => {
   }
 }
 
-export const addPartCategory = (name) => {
+export const addPartCategory = (name, cb = null) => {
   return (dispatch) => {
     $.ajax({
       url: '/api/part_categories',
@@ -31,6 +31,8 @@ export const addPartCategory = (name) => {
       data: { part_category: { name }}
     }).done( category => {
       dispatch({ type: 'ADD_PART_CATEGORY', category })
+      if (cb)
+        cb(category)
     }).fail( err => {
       dispatch(setFlash(err.responseJSON.errors, 'error'))
     });
@@ -49,4 +51,8 @@ export const editPartCategory = (id, name) => {
       dispatch(setFlash(err.responseJSON.errors, 'error'))
     });
   }
+}
+
+export const uploadPartImage = (category) => {
+  return ({ type: 'EDIT_PART_CATEGORY', category });
 }

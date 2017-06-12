@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PartForm from './PartForm';
-import { Grid, Header, Divider, Menu } from 'semantic-ui-react';
+import { Grid, Header, Divider, Menu, Card, Image, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PartCategory from './PartCategory';
 import { clearSearch } from '../actions/search';
+import defaultService from '../images/default-service.png';
 
 class AdminParts extends Component {
   state = { category: { id: 0 }};
@@ -63,22 +64,33 @@ class AdminParts extends Component {
             <Header as='h1' textAlign='center'>Part Categories</Header>
             { !categories.length && <Header as='h4'>No Parts Added</Header> }
             { cats.length > 0 &&
-              <Menu vertical fluid>
-                { cats.map( c => {
-                    return (
-                      <Menu.Item key={c.id}>
-                        <a
-                          key={c.id}
-                          style={{ cursor: 'pointer' }}
-                          onClick={ () => this.toggleCategory(c.id, c.name) }
-                        >
-                          {c.name}
-                        </a>
-                      </Menu.Item>
-                    )
-                  })
-                }
-              </Menu>
+              <Grid columns={12} divided='vertically'>
+                <Grid.Row>
+                  { cats.map( c => {
+                      return (
+                        <Grid.Column key={c.id} computer={4} tablet={4} mobile={12}>
+                          <Card>
+                            <Card.Content>
+                              <Segment basic textAlign="center" vertialAlign="middle">
+                                <Image width="150px" height="150px" src={c.image || defaultService} />
+                              </Segment>
+                              <Card.Header>
+                                <a
+                                  key={c.id}
+                                  style={{ cursor: 'pointer' }}
+                                  onClick={ () => this.toggleCategory(c.id, c.name) }
+                                >
+                                  {c.name}
+                                </a>
+                              </Card.Header>
+                            </Card.Content>
+                          </Card>
+                        </Grid.Column>
+                      )
+                    })
+                  }
+                </Grid.Row>
+              </Grid>
             }
             { cats.length === 0 && this.props.searching &&
               <Header as="h1" textAlign="center">No results found</Header>

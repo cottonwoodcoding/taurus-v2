@@ -1,5 +1,5 @@
 class Api::ServiceCategoriesController < ApplicationController
-  before_action :set_service_category, only: [:show, :update, :destroy]
+  before_action :set_service_category, only: [:show, :update, :destroy, :file_upload]
 
   def index
     render json: ServiceCategory.all
@@ -16,6 +16,16 @@ class Api::ServiceCategoriesController < ApplicationController
     else
       failed_request(cat)
     end
+  end
+
+  def file_upload
+    obj = Cloudinary::Uploader.upload(params[:file].path)
+    url = obj['url']
+    thumb = ActionController::Base.helpers.cl_image_path(
+      "#{obj['public_id']}.#{obj['format']}",
+      width: 150, height: 150, crop: 'scale'
+    )
+    @service_category.update(image: thumb) ? render(json: @service_category) : failed_request(@service_category)
   end
 
   def update

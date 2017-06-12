@@ -19,7 +19,7 @@ class FileDrop extends Component {
       if (res.body) {
         if (this.props.action) 
           dispatch(this.props.action(res.body));
-        else
+        if (this.props.cb)
           this.props.cb()
 
         this.setState({ loading: false })
@@ -50,7 +50,7 @@ class FileDrop extends Component {
         { imgSrc ? 
           <Image centered src={imgSrc} size='small' />
           :
-          <Button type="button" fluid basic>Drop Image Here To Add</Button>
+          <Button size='massive' type="button" fluid basic>Drop Image Here To Add</Button>
         }
       </Dropzone>
     );

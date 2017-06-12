@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
     get '/parts/search'
     put '/parts/:id/file_upload', to: 'parts#file_upload'
+    put '/part_categories/:id/file_upload', to: 'part_categories#file_upload'
+    put '/service_categories/:id/file_upload', to: 'service_categories#file_upload'
     resources :parts, only: [:index, :show, :destroy]
 
     # Site Resources

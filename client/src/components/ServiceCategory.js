@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Feed, Header, Icon, Button, Divider } from 'semantic-ui-react';
+import { Card, Feed, Header, Icon, Button, Divider, Image } from 'semantic-ui-react';
 import { deleteService } from '../actions/services';
+import defaultService from '../images/default-service.png';
 
-const Services = ({ catId, name, services, isAuthenticated, dispatch, Modal }) => (
+const Services = ({ image, catId, name, services, isAuthenticated, dispatch, Modal }) => (
   <Card fluid>
     <Card.Content>
+      <Image floated="right" size="mini" src={image || defaultService} />
       <Card.Header>
         { name }
       </Card.Header>
@@ -17,7 +19,7 @@ const Services = ({ catId, name, services, isAuthenticated, dispatch, Modal }) =
                 return (
                   <Feed.Event key={s.id}>
                     <Feed.Label>
-                      <Icon color="green" name="checkmark" />
+                      <Icon color="black" name="checkmark" />
                     </Feed.Label>
                     <Feed.Content>
                       <Feed.Summary>

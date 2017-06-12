@@ -88,6 +88,7 @@ class AdminServices extends React.Component {
                       <ServiceCategory
                         catId={sc.id}
                         name={sc.name}
+                        image={sc.image}
                       />
                       <Divider hidden/>
                     </Grid.Column>
