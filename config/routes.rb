@@ -27,5 +27,5 @@ Rails.application.routes.draw do
     post 'contact', to: 'contact#create'
   end
 
-  get '*unmatched_route', to: 'application#client'
+  get '*other', to: 'static#index'
 end

@@ -6,7 +6,4 @@ class ApplicationController < ActionController::API
     render json: {errors: model.errors.full_messages.join(',')}, status: :unprocessable_entity
   end
 
-  def client
-    render file: "#{Rails.root}/public/index.html"
-  end
 end
