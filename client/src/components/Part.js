@@ -16,7 +16,7 @@ class Part extends React.Component {
     }).done( part => {
       dispatch({ type: 'PART', part });
       let tabs = [];
-      if (part.specifications)
+      if (part.specifications && part.specifications !== "[]")
         tabs.push('specifications')
       if (part.features.length)
         tabs.push('features')

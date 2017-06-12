@@ -1,9 +1,10 @@
 import React from 'react'
-import { Header, Grid, Icon } from 'semantic-ui-react';
+import { Header, Grid, Icon, Card, Image, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getParts, deletePart } from '../actions/parts';
 import { clearSearch } from '../actions/search';
+import missingImg from '../images/missing.png';
 
 class PartCategory extends React.Component {
   componentDidMount() {
@@ -51,12 +52,41 @@ class PartCategory extends React.Component {
             Show All
           </Header>
         }
-        <Grid columns={12}>
+        <Grid divided='vertically' columns={12}>
           <Grid.Row>
             { visibleParts.map( p => {
                 return (
-                  <Grid.Column computer={3} mobile={12} key={p.id}>
-                    <Link to={`/parts/${p.id}`}>{p.name}</Link>
+                  <Grid.Column computer={4} mobile={12} key={p.id}>
+                    <Card>
+                      <Link to={`/parts/${p.id}`}>
+                        <Segment textAlign="center">
+                          <Image 
+                            height="150px" 
+                            width="150px" 
+                            verticalAlign="middle"
+                            src={p.image_thumb || missingImg} 
+                          />
+                        </Segment>
+                      </Link>
+                      <Card.Content>
+                        <Card.Header>
+                          <Link to={`/parts/${p.id}`}>
+                            {p.name}
+                          </Link>
+                        </Card.Header>
+                      </Card.Content>
+                      { admin &&
+                        <Card.Content extra>
+                          <Icon
+                            color="red"
+                            name="trash"
+                            style={{ cursor: 'pointer' }}
+                            onClick={ () => this.deletePart(p.id) }
+                          />
+                        </Card.Content>
+                      }
+                    </Card>
+                    {/*<Link to={`/parts/${p.id}`}>{p.name}</Link>
                     { admin &&
                       <Icon
                         color="red"
@@ -65,6 +95,7 @@ class PartCategory extends React.Component {
                         onClick={ () => this.deletePart(p.id) }
                       />
                     }
+                   */}
                   </Grid.Column>
                 )
               })

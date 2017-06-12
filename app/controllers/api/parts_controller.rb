@@ -20,8 +20,15 @@ class Api::PartsController < ApplicationController
   end
 
   def file_upload
-    url = Cloudinary::Uploader.upload(params[:file].path)['url']
-    @part.update(image: url) ? render(json: @part) : failed_request(@part)
+    obj = Cloudinary::Uploader.upload(params[:file].path)
+    url = obj['url']
+    thumb = ActionController::Base.helpers.cl_image_path(
+      "#{obj['public_id']}.#{obj['format']}",
+      width: 150, height: 150, crop: 'scale'
+    )
+    @part.image = url
+    @part.image_thumb = thumb
+    @part.save ? render(json: @part) : failed_request(@part)
   end
 
   def update
