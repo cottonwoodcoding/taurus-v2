@@ -23,7 +23,9 @@ const Home = ({ site }) => (
       <Grid.Column computer={8} tablet={16} mobile={16}>
         <Grid.Row>
           <Divider />
-          <Header as='h1' textAlign='center'>{site.phone}</Header>
+          <a href={`tel:${site.phone.replace(/\D/g,'')}`}>
+            <Header as='h1' textAlign='center'>{site.phone}</Header>
+          </a>
           <Divider />
           <Grid columns={3}>  
             <Grid.Row>

@@ -52,7 +52,11 @@ class Part extends React.Component {
         return <Header as="h3">${price.toPrecision(4)}</Header>
       }
     } else {
-      return <Header as="h3">Call for price {phone}</Header>
+      return (
+        <a href={`tel:${phone.replace(/\D/g,'')}`}>
+          <Header as="h3">Call for price {phone}</Header>
+        </a>
+      )
     }
   }
 
