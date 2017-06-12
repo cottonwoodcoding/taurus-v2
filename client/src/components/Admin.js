@@ -50,7 +50,7 @@ class Admin extends React.Component {
     let { panel } = this.state;
     return (
       <div>
-        <Header as='h2' textAlign='center'>Admin Dashboard</Header>
+        <Header as='h1' textAlign='center'>Admin Dashboard</Header>
         <Menu attached="top" tabular>
           { ['categories', 'services', 'parts', 'site'].map( (name) => {
               return (

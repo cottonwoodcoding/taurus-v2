@@ -107,7 +107,7 @@ class PartForm extends React.Component {
     let { name, description, number, price, sale_price, qty_on_hand, specifications, features, onSale, specName, specValue, feature, category, part } = this.state;
     return (
       <div>
-        <Modal 
+        <Modal
           closeIcon={true}
           onClose={() => { this.setState({ part: {} }) }}
           open={part.id ? true : false}
@@ -240,11 +240,11 @@ class PartForm extends React.Component {
           <Form.Input
             id="feature"
             label="Feature"
+            placholder='Feature Name'
             value={feature || ''}
             onChange={this.handleChange}
           />
           <Button fluid basic inverted type="button" onClick={this.addFeature}>Add Feature +</Button>
-
           { this.props.part &&
             <div>
               <Divider />

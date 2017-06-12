@@ -123,7 +123,7 @@ class Categories extends Component {
               />
               <Divider hidden/>
               <Button type="button" onClick={() => this.toggleEdit(c.id)}>Cancel</Button>
-              <Button>Save</Button>
+              <Button secondary>Save</Button>
             </Form>
           }
         </Menu.Item>
@@ -167,7 +167,7 @@ class Categories extends Component {
             value={this.state.name}
             onChange={this.handleChange}
           />
-          <Button>Add</Button>
+          <Button secondary>Add</Button>
         </Form>
         <Header as='h4'>{title} Categories</Header>
         <Menu vertical fluid>{ this.cats() }</Menu>

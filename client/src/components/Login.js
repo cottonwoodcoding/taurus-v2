@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Form, Button } from 'semantic-ui-react';
+import { Header, Form, Button, Segment } from 'semantic-ui-react';
 import { handleLogin } from '../actions/auth';
 import { connect } from 'react-redux';
 
@@ -24,7 +24,7 @@ class Login extends Component {
     let { email, password } = this.state;
     return (
       <div>
-        <Header as="h3">{title}</Header>
+        <Header as="h1" textAlign='center'>Admin {title}</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             id="email"
@@ -42,7 +42,9 @@ class Login extends Component {
             onChange={this.handleChange}
             value={password}
           />
-          <Button>Submit</Button>
+          <Segment basic textAlign='center'>
+            <Button secondary>Submit</Button>
+          </Segment>
         </Form>
       </div>
     )

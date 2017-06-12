@@ -71,7 +71,7 @@ class AdminServices extends React.Component {
                 value={description}
                 onChange={this.handleChange}
               />
-              <Button>Add Service</Button>
+              <Button secondary>Add Service</Button>
             </Form>
             <Divider clearing hidden />
           </Grid.Column>
