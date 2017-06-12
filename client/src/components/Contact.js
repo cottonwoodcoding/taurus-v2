@@ -42,10 +42,14 @@ class Contact extends Component {
 
   render() {
     let { firstName, lastName, email, phone, message } = this.state;
+    let { site } = this.props;
 
     return(
       <Segment basic>
         <Header as='h1' textAlign='center'>Contact Us!</Header>
+        <a href={`tel:${site.phone.replace(/\D/g,'')}`}>
+          <Header as='h1' textAlign='center'>{site.phone}</Header>
+        </a>
         <Segment basic textAlign='center'>
           <Icon name='envelope' size='huge' />
         </Segment>
@@ -115,4 +119,8 @@ class Contact extends Component {
   }
 }
 
-export default connect()(Contact);
+const mapStateToProps = (state) => {
+  return { site: state.site };
+}
+
+export default connect(mapStateToProps)(Contact);
