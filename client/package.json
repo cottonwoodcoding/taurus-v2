@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
+    "core-js": "^2.4.1",
     "j-toker": "^0.0.10-beta3",
     "jquery": "^3.2.1",
     "jquery-deparam": "^0.5.3",

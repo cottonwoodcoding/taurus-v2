@@ -108,7 +108,7 @@ class Part extends React.Component {
       admin,
       category,
       phone,
-      part: { id, image, part_category_id, name, description, number, price, sale_price }
+      part: { id, image, name, description, number, price, sale_price }
     } = this.props;
 
     let { tab } = this.state;
@@ -184,8 +184,7 @@ class Part extends React.Component {
                   <Divider />
                   <Button 
                     fluid 
-                    basic 
-                    color="blue" 
+                    secondary
                     type="button" 
                     onClick={this.toggleEdit}
                   >

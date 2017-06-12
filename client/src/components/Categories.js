@@ -152,7 +152,7 @@ class Categories extends Component {
             />
             <Divider hidden/>
             <Button 
-              primary
+              secondary
               fluid 
               onClick={ () => this.setState({ category: {} }) }
             >

@@ -42,7 +42,7 @@ class AdminServices extends React.Component {
   }
 
   render() {
-    let { name, description, category } = this.state;
+    let { name, description } = this.state;
     let { serviceCategories, hideForm } = this.props;
     return (
       <Grid.Row>

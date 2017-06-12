@@ -6,6 +6,7 @@ import store from './store';
 import App from './App';
 import 'semantic-ui-css/semantic.min.css';
 import './styles/app.css';
+import './polyfills';
 
 ReactDOM.render(
   <Provider store={store}>

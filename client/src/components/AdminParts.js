@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PartForm from './PartForm';
-import { Grid, Header, Divider, Menu, Card, Image, Segment } from 'semantic-ui-react';
+import { Grid, Header, Divider, Card, Image, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PartCategory from './PartCategory';
 import { clearSearch } from '../actions/search';

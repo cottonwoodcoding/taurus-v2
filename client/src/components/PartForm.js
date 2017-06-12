@@ -87,7 +87,7 @@ class PartForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let { dispatch, part, toggleEdit } = this.props;
+    let { dispatch, part } = this.props;
     let { onSale, feature, specName, specValue, ...rest } = this.state;
     if (rest.category) {
       let { category, ...p } = rest
@@ -104,7 +104,7 @@ class PartForm extends React.Component {
   }
 
   render() {
-    let { name, description, number, price, sale_price, qty_on_hand, image, specifications, features, onSale, specName, specValue, feature, category, part_category_id, part } = this.state;
+    let { name, description, number, price, sale_price, qty_on_hand, specifications, features, onSale, specName, specValue, feature, category, part } = this.state;
     return (
       <div>
         <Modal 
@@ -214,8 +214,8 @@ class PartForm extends React.Component {
                   onChange={this.handleChange}
                 />
               </Grid.Column>
-              <Grid.Column computer={8} tablet={16} mobile={16}>
-                <Button fluid basic color="blue" type="button" onClick={this.addSpec}>Add Spec +</Button>
+              <Grid.Column computer={16} tablet={16} mobile={16}>
+                <Button fluid basic inverted type="button" onClick={this.addSpec}>Add Spec +</Button>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -243,7 +243,7 @@ class PartForm extends React.Component {
             value={feature || ''}
             onChange={this.handleChange}
           />
-          <Button fluid basic color="blue" type="button" onClick={this.addFeature}>Add Feature +</Button>
+          <Button fluid basic inverted type="button" onClick={this.addFeature}>Add Feature +</Button>
 
           { this.props.part &&
             <div>
@@ -258,7 +258,7 @@ class PartForm extends React.Component {
               <Button fluid onClick={this.props.toggleEdit}>Cancel</Button>
             </div>
           }
-          <Button fluid primary>{this.props.part ? 'Update' : 'Add'} Part</Button>
+          <Button fluid secondary>{this.props.part ? 'Update' : 'Add'} Part</Button>
         </Form>
       </div>
     )
