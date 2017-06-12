@@ -5,7 +5,6 @@ Site.first_or_create do |s|
   s.state = 'UT'
   s.zip = '84123'
   s.phone = '(801) 266-4420'
-  s.main_logo_url = 'http://res.cloudinary.com/taurus-trailer/image/upload/v1497113129/logo_rx3eym.svg'
-  s.nav_logo_url = 'http://res.cloudinary.com/taurus-trailer/image/upload/v1497113128/logo-inverted_rhnnpz.png'
+  s.main_logo_url = 'http://res.cloudinary.com/taurus-trailer/image/upload/v1497131958/s7r38qb28zrs8cqj7wu4.svg'
+  s.nav_logo_url = 'http://res.cloudinary.com/taurus-trailer/image/upload/v1497137216/jlj73lsdqwstdvz7oylc.png'
 end
-
