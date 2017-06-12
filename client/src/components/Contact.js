@@ -3,31 +3,41 @@ import { Form, Input, TextArea, Button, Header, Divider, Segment, Icon } from 's
 import { setFlash } from '../actions/flash';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import ReCAPTCHA from "react-google-recaptcha";
 
 class Contact extends Component {
   defaults = { firstName: '', lastName: '', email: '', phone: '', message: '' };
-  state = { ...this.defaults };
+  state = { ...this.defaults, recaptchaCompleted: false };
 
   handleSubmit = (e) => {
-    let { dispatch } = this.props;
-
     e.preventDefault();
-    $.ajax({
-      url: '/api/contact',
-      type: 'POST',
-      dataType: 'JSON',
-      data: { contact: this.state }
-    }).done( data => {
-      dispatch(setFlash('Your message has been sent!', 'success'));
-      this.setState({ ...this.defaults });
-    }).fail( data => {
-      dispatch(setFlash('Something went wrong. Please try again.', 'error'));
-    });
+    let { dispatch } = this.props;
+    if(this.state.recaptchaCompleted) {
+      $.ajax({
+        url: '/api/contact',
+        type: 'POST',
+        dataType: 'JSON',
+        data: { contact: this.state }
+      }).done( data => {
+        dispatch(setFlash('Your message has been sent!', 'success'));
+        this.setState({ ...this.defaults });
+      }).fail( data => {
+        dispatch(setFlash('Something went wrong. Please try again.', 'error'));
+      }).always( data => {
+        this.refs.recaptcha.reset();
+      });
+    } else {
+      alert('You need to complete the reCAPTCHA!');
+    }
   }
 
   setValue = (e) => {
     let { target: { id, value } } = e;
     this.setState({[id]: value })
+  }
+
+  recaptchaSuccess = (e) => {
+    this.setState({ recaptchaCompleted: true });
   }
 
   render() {
@@ -89,6 +99,12 @@ class Contact extends Component {
             control={TextArea}
             label='Message'
             placeholder='Your Message...'
+          />
+          <ReCAPTCHA
+            ref="recaptcha"
+            sitekey="6LeUMiUUAAAAALys_LmkIMk-11uyYJPyTz-8DVVm"
+            onChange={this.recaptchaSuccess}
+            theme='dark'
           />
           <Segment basic textAlign='center'>
             <Form.Field control={Button} secondary>Submit</Form.Field>
