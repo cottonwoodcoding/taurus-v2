@@ -3,7 +3,7 @@ class Api::PartsController < ApplicationController
   before_action :set_part, only: [:update, :destroy, :show, :file_upload]
 
   def index
-    render json: @part_category.parts
+    render json: @part_category.parts.order('lower(name)')
   end
 
   def show
@@ -61,7 +61,7 @@ class Api::PartsController < ApplicationController
       params[:part] = JSON.parse(params[:part])
       params.require(:part).permit(
         :name, :description, :number, :price, :sale_price, :qty_on_hand,
-        :image, features: [], 
+        features: [], 
         specifications: [:specName, :specValue ]
       )
     end

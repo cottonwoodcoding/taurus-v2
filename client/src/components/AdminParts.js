@@ -32,6 +32,7 @@ class AdminParts extends Component {
   render() {
     let { category } = this.state
     let { categories, hideForm } = this.props;
+    let cats = this.visibileCategories(categories).sort(this.alpha)
     if (category.name) {
       return (
         <div>
@@ -45,11 +46,10 @@ class AdminParts extends Component {
             Back
           </a>
           <Divider hidden />
-          <PartCategory category={category} />
+          <PartCategory category={category} toggleCategory={this.toggleCategory} />
         </div>
       )
     } else {
-      let cats = this.visibileCategories(categories).sort(this.alpha)
       return (
         <Grid.Row>
           { !hideForm &&

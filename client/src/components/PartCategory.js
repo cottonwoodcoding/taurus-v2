@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, Grid, Icon, Card, Image, Segment } from 'semantic-ui-react';
+import { Divider, Header, Grid, Icon, Card, Image, Segment, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getParts, deletePart } from '../actions/parts';
@@ -20,6 +20,10 @@ class PartCategory extends React.Component {
   componentWillReceiveProps(nextProps) {
     let { parts, query, dispatch, category: { id } } = this.props;
     let validQuery = query.length > 2
+
+    if (nextProps.category.id !== this.props.category.id)
+        dispatch(getParts(nextProps.category.id))
+
     if (validQuery && nextProps.query.length <= 2) {
       if (!parts.length)
         dispatch(getParts(id))
@@ -32,13 +36,30 @@ class PartCategory extends React.Component {
     }
   }
 
+  categories = () => {
+    return this.props.categories.map( c => {
+      return { key: c.id, text: c.name, value: c.id }
+    });
+  }
+
+  changeCategory = (e, data) => {
+    let { value, options } = data;
+    let name = options.find( o => value === o.value ).text
+    this.props.dispatch(clearSearch())
+    this.props.toggleCategory(value, name)
+  }
+
   render() {
     let { category: { name, id }, parts, admin, search, dispatch, query } = this.props;
     let validQuery = query.length > 2
     let visibleParts = validQuery ? search : parts
     return (
       <div>
-        <Header as="h3">{name}</Header>
+        <Header as="h3">Category: {name}</Header>
+        <Form onSubmit={ e => { e.preventDefault() } }>
+          <Form.Select options={this.categories()} value={id} onChange={this.changeCategory} />
+        </Form>
+        <Divider />
         { validQuery &&
           <Header
             as="h4"
@@ -86,16 +107,6 @@ class PartCategory extends React.Component {
                         </Card.Content>
                       }
                     </Card>
-                    {/*<Link to={`/parts/${p.id}`}>{p.name}</Link>
-                    { admin &&
-                      <Icon
-                        color="red"
-                        name="trash"
-                        style={{ cursor: 'pointer' }}
-                        onClick={ () => this.deletePart(p.id) }
-                      />
-                    }
-                   */}
                   </Grid.Column>
                 )
               })
@@ -108,7 +119,13 @@ class PartCategory extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { admin: state.auth.isAuthenticated, parts: state.parts, search: state.search, query: state.query }
+  return { 
+    admin: state.auth.isAuthenticated, 
+    parts: state.parts, 
+    search: state.search, 
+    query: state.query,
+    categories: state.partCategories,
+  }
 }
 
 export default connect(mapStateToProps)(PartCategory);
