@@ -2,7 +2,7 @@ class Api::ServiceCategoriesController < ApplicationController
   before_action :set_service_category, only: [:show, :update, :destroy, :file_upload]
 
   def index
-    render json: ServiceCategory.all
+    render json: ServiceCategory.all.order('lower(name)')
   end
 
   def show
