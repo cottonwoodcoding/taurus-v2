@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearFlash } from './actions/flash';
+import { clearFlash } from '../actions/flash';
 import Auth from 'j-toker';
 
 class FetchUser extends React.Component {
