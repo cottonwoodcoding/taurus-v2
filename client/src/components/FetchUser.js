@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { clearFlash } from './actions/flash';
 import Auth from 'j-toker';
 
 class FetchUser extends React.Component {
@@ -20,6 +21,10 @@ class FetchUser extends React.Component {
         .then( () => this.loaded() )
         .catch( () => { this.loaded() } )
     }
+  }
+
+  componentDidUpdate() {
+    this.props.dispatch(clearFlash());
   }
 
   render() {

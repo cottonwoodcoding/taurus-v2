@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { clearFlash } from './actions/flash';
 import { setSite } from './actions/site';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
@@ -18,19 +16,6 @@ import FetchUser from './components/FetchUser';
 import GetPartCategories from './components/GetPartCategories';
 
 class App extends Component {
-  componentDidMount() {
-    let { dispatch } = this.props;
-
-    dispatch(setSite());
-    Auth.configure({ apiUrl: '/api' });
-    Auth.validateToken()
-          .then( user => { dispatch({ type: 'LOGIN', user }) })
-  }
-
-  componentDidUpdate() {
-    this.props.dispatch(clearFlash());
-  }
-
   render() {
     return(
       <div>
@@ -54,4 +39,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect()(App));
+export default App;
