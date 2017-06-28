@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { clearFlash } from '../actions/flash';
 import Auth from 'j-toker';
+import { setSite } from '../actions/site';
 
 class FetchUser extends React.Component {
   state = { loaded: false }
@@ -12,6 +13,7 @@ class FetchUser extends React.Component {
 
   componentDidMount() {
     let { isAuthenticated, dispatch } = this.props;
+    dispatch(setSite());
     if (isAuthenticated) {
       this.loaded();
     } else {

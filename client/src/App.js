@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import { setSite } from './actions/site';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Admin from './components/Admin';
@@ -16,6 +15,10 @@ import FetchUser from './components/FetchUser';
 import GetPartCategories from './components/GetPartCategories';
 
 class App extends Component {
+  componentDidMount() {
+    Auth.configure({ apiUrl: '/api' });
+  }
+
   render() {
     return(
       <div>
