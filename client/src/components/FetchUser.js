@@ -22,7 +22,7 @@ class FetchUser extends React.Component {
       Auth.validateToken()
         .then( user => { dispatch({ type: 'LOGIN', user }) })
         .then( () => this.loaded() )
-        .catch( () => { this.loaded() } )
+        .catch( () => this.loaded() )
     }
   }
 
