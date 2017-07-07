@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { clearFlash } from '../actions/flash';
@@ -27,6 +28,11 @@ class FetchUser extends React.Component {
 
   componentDidUpdate() {
     this.props.dispatch(clearFlash());
+  }
+
+  componentWillReceiveProps() {
+    if (!this.state.loaded)
+      this.loaded()
   }
 
   render() {
