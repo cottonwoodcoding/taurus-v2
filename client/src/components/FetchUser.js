@@ -37,7 +37,7 @@ class FetchUser extends React.Component {
 
   render() {
     let { loaded } = this.state;
-    return loaded ? this.props.children : null
+    return this.props.children
   }
 }
 

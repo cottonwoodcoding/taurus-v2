@@ -20,9 +20,7 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.10",
     "semantic-ui-react": "^0.68.5",
-    "superagent": "^3.5.2"
-  },
-  "devDependencies": {
+    "superagent": "^3.5.2",
     "react-scripts": "1.0.7"
   },
   "scripts": {
